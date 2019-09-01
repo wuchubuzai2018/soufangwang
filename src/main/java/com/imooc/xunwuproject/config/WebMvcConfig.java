@@ -5,16 +5,15 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 /**
- *
+ * 这个类在Spring Boot2下无效
  */
-public class WebMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+public class WebMvcConfig implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
@@ -24,15 +23,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
     }
 
     /**
-     * 静态资源映射信息
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-    }
-
-
-    /**
      * 模板资源解析器
      * @return
      */
@@ -40,6 +30,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
     public SpringResourceTemplateResolver templateResolver(){
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
+        //templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
